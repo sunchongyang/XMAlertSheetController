@@ -51,13 +51,13 @@ class ViewController: UIViewController {
         
         if showDefaultAction {
             alertSheet.addAction(XMAlertAction(title: "No Thanks", style: .default, action: {
-                
+                print("No thansk!")
             }))
         }
         
         if showDestructiveAction {
             alertSheet.addAction(XMAlertAction(title: "Allow", style: .destructive, action: {
-                
+				print("No Allow!")
             }))
         }
         

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina5_9" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,6 +17,7 @@
                 <outlet property="alertView" destination="Uyy-KO-w4M" id="6ff-RI-EVc"/>
                 <outlet property="cancelActionStackViewHeightConstraint" destination="acQ-bE-Lj7" id="ZcA-9v-COf"/>
                 <outlet property="cancelStackView" destination="cEq-QW-OoG" id="Ujo-9z-TMn"/>
+                <outlet property="maskView" destination="922-KR-v5S" id="t3w-XB-SL5"/>
                 <outlet property="titleStackViewBottomConstraint" destination="wFF-Vb-0mm" id="1fO-WO-oST"/>
                 <outlet property="titleStackViewTopConstraint" destination="ZgS-Ga-euY" id="0bJ-0a-obV"/>
                 <outlet property="view" destination="iN0-l3-epB" id="43G-7i-9J9"/>
@@ -29,8 +28,12 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uyy-KO-w4M">
-                    <rect key="frame" x="0.0" y="709" width="375" height="103"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="922-KR-v5S">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uyy-KO-w4M">
+                    <rect key="frame" x="0.0" y="709" width="375" height="143"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Abv-Ce-970">
                             <rect key="frame" x="30" y="12" width="315" height="79"/>
@@ -72,7 +75,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="Abv-Ce-970" firstAttribute="leading" secondItem="Uyy-KO-w4M" secondAttribute="leading" constant="30" id="1OH-xJ-D4g"/>
-                        <constraint firstAttribute="bottom" secondItem="cEq-QW-OoG" secondAttribute="bottom" id="9oD-7a-5j1"/>
+                        <constraint firstAttribute="bottom" secondItem="cEq-QW-OoG" secondAttribute="bottom" constant="40" id="9oD-7a-5j1"/>
                         <constraint firstAttribute="trailing" secondItem="Abv-Ce-970" secondAttribute="trailing" constant="30" id="M0Y-9s-PJJ"/>
                         <constraint firstAttribute="trailing" secondItem="cEq-QW-OoG" secondAttribute="trailing" id="OVp-Tm-cLC"/>
                         <constraint firstItem="Abv-Ce-970" firstAttribute="top" secondItem="Uyy-KO-w4M" secondAttribute="top" constant="12" id="ZgS-Ga-euY"/>
@@ -82,15 +85,24 @@
                         <constraint firstItem="2YL-Gy-gve" firstAttribute="top" secondItem="Abv-Ce-970" secondAttribute="bottom" constant="12" id="wFF-Vb-0mm"/>
                         <constraint firstItem="2YL-Gy-gve" firstAttribute="leading" secondItem="Uyy-KO-w4M" secondAttribute="leading" id="xSa-TP-X3J"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="24"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29693001760563381" colorSpace="custom" customColorSpace="sRGB"/>
-            <constraints>
-                <constraint firstAttribute="bottom" secondItem="Uyy-KO-w4M" secondAttribute="bottom" id="KIH-fJ-aLG"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Uyy-KO-w4M" secondAttribute="trailing" id="Lkb-i7-Ovp"/>
-                <constraint firstItem="Uyy-KO-w4M" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="oK5-WL-lg1"/>
-            </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Uyy-KO-w4M" secondAttribute="bottom" constant="-40" id="KIH-fJ-aLG"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Uyy-KO-w4M" secondAttribute="trailing" id="Lkb-i7-Ovp"/>
+                <constraint firstItem="922-KR-v5S" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="OBa-Di-sDR"/>
+                <constraint firstItem="922-KR-v5S" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="bTT-bE-muJ"/>
+                <constraint firstAttribute="trailing" secondItem="922-KR-v5S" secondAttribute="trailing" id="mPj-iq-SYJ"/>
+                <constraint firstItem="Uyy-KO-w4M" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="oK5-WL-lg1"/>
+                <constraint firstAttribute="bottom" secondItem="922-KR-v5S" secondAttribute="bottom" id="ucC-MW-fxy"/>
+            </constraints>
             <point key="canvasLocation" x="53.600000000000001" y="46.551724137931039"/>
         </view>
     </objects>

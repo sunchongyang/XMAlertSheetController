@@ -26,7 +26,9 @@ extension UIDevice {
 
 @objc open class XMAlertSheetController: UIViewController {
 
-    /// 主标题
+	/// 黑色半透明遮罩
+	@IBOutlet weak var maskView: UIView!
+	/// 主标题
     @IBOutlet weak var alertTitle: UILabel!
     /// 副标题
     @IBOutlet weak var alertMessage: UILabel!
@@ -45,16 +47,20 @@ extension UIDevice {
     /// title and message stack view bottom Constraint
     @IBOutlet weak var titleStackViewBottomConstraint: NSLayoutConstraint!
     /// action height
-    open var ALERT_STACK_VIEW_HEIGHT: CGFloat = 50
+    open var FIRST_ALERT_STACK_VIEW_HEIGHT: CGFloat = 56
+	open var ALERT_STACK_VIEW_HEIGHT: CGFloat = 48
+
     /// total content height
     private var contentViewHeight: CGFloat = 0
     /// 点击背景是否消失
-    open var dismissWithBackgroudTouch = false // enable touch background to dismiss. Off by
+    open var dismissWithBackgroudTouch = true // enable touch background to dismiss. default value is true
     
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.alertView.transform = CGAffineTransform(translationX: 0, y: self.contentViewHeight)
+		self.maskView.alpha = 0.0
         UIView.animate(withDuration: 0.25) {
+			self.maskView.alpha = 1.0
             self.alertView.transform = CGAffineTransform.identity
         }
     }
@@ -72,7 +78,9 @@ extension UIDevice {
         /// for present vc
         self.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         self.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-        
+		let titleFont = UIFont(name: "DMSans-Medium", size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .medium)
+		alertTitle.font = titleFont
+		alertMessage.font = titleFont.withSize(13)
         if let title = title, title.count > 0 {
             alertTitle.isHidden = false
             alertTitle.text = title
@@ -95,8 +103,6 @@ extension UIDevice {
         // Gesture recognizer for background dismiss with background touch
         let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(dismissAlertControllerFromBackgroundTap))
         self.view.addGestureRecognizer(tapRecognizer)
-        
-        setShadowAlertView()
     }
     
     //MARK: - Actions
@@ -105,20 +111,21 @@ extension UIDevice {
         if alertAction.actionStyle == .cancel {
             if UIDevice.hasSafeArea { // has Safe Area
                 cancelActionStackViewHeightConstraint.constant = ALERT_STACK_VIEW_HEIGHT + 30
-                alertAction.titleEdgeInsets.top = -5
+				alertAction.titleEdgeInsets.bottom = 34
             } else {
                 cancelActionStackViewHeightConstraint.constant = ALERT_STACK_VIEW_HEIGHT + 10
-                alertAction.titleEdgeInsets.top = 5
+                alertAction.titleEdgeInsets.bottom = 5
             }
             cancelStackView.addArrangedSubview(alertAction)
         } else {
             alertActionStackView.addArrangedSubview(alertAction)
-        }
-        // calcalate content height
-        if alertActionStackView.arrangedSubviews.count >= 2 {
-            alertActionStackViewHeightConstraint.constant = ALERT_STACK_VIEW_HEIGHT * CGFloat(alertActionStackView.arrangedSubviews.count)
-        } else {
-            alertActionStackViewHeightConstraint.constant = ALERT_STACK_VIEW_HEIGHT
+			if alertActionStackView.arrangedSubviews.count == 1 && alertTitle.isHidden && alertMessage.isHidden  {
+				alertAction.partingLine.isHidden = true
+				alertAction.heightAnchor.constraint(equalToConstant: FIRST_ALERT_STACK_VIEW_HEIGHT).isActive = true
+				alertActionStackViewHeightConstraint.constant += FIRST_ALERT_STACK_VIEW_HEIGHT
+			} else {
+				alertActionStackViewHeightConstraint.constant += ALERT_STACK_VIEW_HEIGHT
+			}
         }
         
         alertAction.addTarget(self, action: #selector(XMAlertSheetController.dismissAlertController(_:)), for: .touchUpInside)
@@ -138,13 +145,6 @@ extension UIDevice {
     }
     
     //MARK: - Customizations
-    @objc private func setShadowAlertView(){
-        alertView.layer.masksToBounds = false
-        alertView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        alertView.layer.shadowRadius = 3
-        alertView.layer.shadowOpacity = 0.3
-    }
-    
     @objc private func loadNibAlertController() -> [AnyObject]? {
         let podBundle = Bundle(for: self.classForCoder)
         
@@ -166,8 +166,9 @@ extension UIDevice {
     @objc private func animateDismiss() {
         UIView.animate(withDuration: 0.2, animations: {
             self.alertView.transform = CGAffineTransform(translationX: 0, y: self.alertView.bounds.height)
+			self.maskView.alpha = 0.0
         }, completion: { _ in
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: false, completion: nil)
         })
     }
 }

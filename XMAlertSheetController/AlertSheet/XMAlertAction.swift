@@ -23,8 +23,21 @@ import UIKit
     /// 分割线
     open var partingLine = UIView()
     
+	open var partingLineHorizonInset: CGFloat = 0
+
+	open var partingLineColor: UIColor? {
+		set {
+			partingLine.backgroundColor = newValue
+		}
+		get {
+			return partingLine.backgroundColor
+		}
+	}
+
+
     init() {
         super.init(frame: .zero)
+		partingLineColor = UIColor(red: 0xC7/255.0, green: 0xC7/255.0, blue: 0xC7/255.0, alpha: 1.0)
     }
     
      @objc public convenience init(title: String, style: XMAlertActionStyle, action: (() -> Void)? = nil) {
@@ -34,15 +47,16 @@ import UIKit
 
         self.addTarget(self, action: #selector(tappedAction), for: .touchUpInside)
         self.setTitle(title, for: .normal)
-        self.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+		let font = UIFont(name: "DMSans-Medium", size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .medium)
+        self.titleLabel?.font = font
         
         switch style {
         case .default:
-            self.setTitleColor(UIColor.black, for: .normal)
+			self.setTitleColor(UIColor(red: 0x20/255.0, green: 0x20/255.0, blue: 0x20/255.0, alpha: 1.0), for: .normal)
         case .destructive:
-            self.setTitleColor(UIColor.red, for: .normal)
+			self.setTitleColor(UIColor(red: 0xFF/255.0, green: 0x3B/255.0, blue: 0x30/255.0, alpha: 1.0), for: .normal)
         case .cancel:
-            self.setTitleColor(UIColor.darkGray, for: .normal)
+            self.setTitleColor(UIColor(red: 0x80/255.0, green: 0x80/255.0, blue: 0x80/255.0, alpha: 1.0), for: .normal)
         }
         self.addSeparatorLine(style: style)
     }
@@ -63,15 +77,15 @@ extension XMAlertAction {
     
     func addSeparatorLine(style: XMAlertActionStyle) {
         
-        partingLine.backgroundColor = #colorLiteral(red: 0.9395350814, green: 0.9491689801, blue: 0.9619832635, alpha: 1)
+        partingLine.backgroundColor = partingLineColor
         self.addSubview(partingLine)
         
         // Autolayout separator
         partingLine.translatesAutoresizingMaskIntoConstraints = false
         partingLine.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        partingLine.leadingAnchor.constraint(equalTo: self.layoutMarginsGuide.leadingAnchor, constant: -15).isActive = true
-        partingLine.trailingAnchor.constraint(equalTo: self.layoutMarginsGuide.trailingAnchor, constant: 15).isActive = true
-        let height: CGFloat = style == .cancel ? 8 : 0.5
+        partingLine.leadingAnchor.constraint(equalTo: self.layoutMarginsGuide.leadingAnchor, constant: partingLineHorizonInset).isActive = true
+        partingLine.trailingAnchor.constraint(equalTo: self.layoutMarginsGuide.trailingAnchor, constant: partingLineHorizonInset).isActive = true
+        let height: CGFloat = style == .cancel ? 1 : 1
         partingLine.heightAnchor.constraint(equalToConstant: height).isActive = true
     }
 }
