@@ -130,7 +130,7 @@ extension UIDevice {
         
         alertAction.addTarget(self, action: #selector(XMAlertSheetController.dismissAlertController(_:)), for: .touchUpInside)
         
-        contentViewHeight = ALERT_STACK_VIEW_HEIGHT * CGFloat(alertActionStackView.arrangedSubviews.count + cancelStackView.arrangedSubviews.count)
+		contentViewHeight = cancelActionStackViewHeightConstraint.constant + alertActionStackViewHeightConstraint.constant + titleStackViewTopConstraint.constant + titleStackViewBottomConstraint.constant
     }
     
     @objc private func dismissAlertController(_ sender: XMAlertAction){
@@ -164,11 +164,11 @@ extension UIDevice {
     }
     
     @objc private func animateDismiss() {
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: 0.25, animations: {
             self.alertView.transform = CGAffineTransform(translationX: 0, y: self.alertView.bounds.height)
 			self.maskView.alpha = 0.0
         }, completion: { _ in
-            self.dismiss(animated: false, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         })
     }
 }
