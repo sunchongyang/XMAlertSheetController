@@ -70,8 +70,8 @@ extension XMAlertAction {
     
     @objc func tappedAction() {
         //Action need to be fired after alert dismiss
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
-            self?.action?()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+            self.action?()
         }
     }
     
