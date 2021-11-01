@@ -134,14 +134,14 @@ extension UIDevice {
     }
     
     @objc private func dismissAlertController(_ sender: XMAlertAction){
-        animateDismiss()
+        animateDismiss(sender)
     }
     
     @objc private func dismissAlertControllerFromBackgroundTap() {
         if !dismissWithBackgroudTouch {
             return
         }
-        animateDismiss()
+        animateDismiss(nil)
     }
     
     //MARK: - Customizations
@@ -163,12 +163,13 @@ extension UIDevice {
         return nil
     }
     
-    @objc private func animateDismiss() {
+	@objc private func animateDismiss(_ alertAction: XMAlertAction?) {
         UIView.animate(withDuration: 0.25, animations: {
             self.alertView.transform = CGAffineTransform(translationX: 0, y: self.alertView.bounds.height)
 			self.maskView.alpha = 0.0
         }, completion: { _ in
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: false, completion: nil)
+			alertAction?.action?()
         })
     }
 }

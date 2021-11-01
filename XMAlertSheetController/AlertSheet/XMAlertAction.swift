@@ -17,7 +17,7 @@ import UIKit
 
 @objc open  class XMAlertAction: UIButton {
 
-    private var action: (() -> Void)?
+	open var action: (() -> Void)?
     
     open var actionStyle: XMAlertActionStyle = .cancel
     /// 分割线
@@ -70,9 +70,9 @@ extension XMAlertAction {
     
     @objc func tappedAction() {
         //Action need to be fired after alert dismiss
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.20) {
-            self.action?()
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.20) {
+//            self.action?()
+//        }
     }
     
     func addSeparatorLine(style: XMAlertActionStyle) {
