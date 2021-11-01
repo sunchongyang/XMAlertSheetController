@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
 
   s.description  = "XMAlertSheetController is a Swift library that provides a custom action sheet. It will give the users a fancy experience without taking pains coding the cool animation. Hokusai is compatible with Swift4."
 
-  s.homepage     = "https://github.com/iMazy/XMAlertSheetController"
+  s.homepage     = "https://github.com/sunchongyang/XMAlertSheetController"
 
   s.license      = "MIT"
   # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, "9.0"
 
-  s.source       = { :git => "https://github.com/iMazy/XMAlertSheetController.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/sunchongyang/XMAlertSheetController.git", :tag => "#{s.version}" }
 
   s.source_files  = "XMAlertSheetController/AlertSheet/*"
     s.resource_bundles = {
