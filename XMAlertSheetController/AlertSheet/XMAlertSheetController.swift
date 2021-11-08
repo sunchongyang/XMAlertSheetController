@@ -168,8 +168,9 @@ extension UIDevice {
             self.alertView.transform = CGAffineTransform(translationX: 0, y: self.alertView.bounds.height)
 			self.maskView.alpha = 0.0
         }, completion: { _ in
-            self.dismiss(animated: false, completion: nil)
-			alertAction?.action?()
+			self.dismiss(animated: false, completion: {
+				alertAction?.action?()
+			})
         })
     }
 }
