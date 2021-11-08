@@ -165,10 +165,10 @@ extension UIDevice {
     
 	@objc private func animateDismiss(_ alertAction: XMAlertAction?) {
 		let actionHandler = alertAction?.action
-        UIView.animate(withDuration: 0.25, animations: {
+        UIView.animate(withDuration: 0.25, animations: { [unowned self] in
             self.alertView.transform = CGAffineTransform(translationX: 0, y: self.alertView.bounds.height)
 			self.maskView.alpha = 0.0
-        }, completion: { _ in
+        }, completion: { [unowned self] _ in
 			self.dismiss(animated: false, completion: {
 				DispatchQueue.main.async {
 					actionHandler?()
