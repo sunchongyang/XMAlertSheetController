@@ -48,7 +48,7 @@ class ViewController: UIViewController {
     @IBAction func showAlertSheet() {
         
         let alertSheet = XMAlertSheetController(title: mainTitle, message: descMessage)
-        
+		alertSheet.delegate = self
         if showDefaultAction {
             alertSheet.addAction(XMAlertAction(title: "No Thanks", style: .default, action: {
                 print("No thansk!")
@@ -68,3 +68,8 @@ class ViewController: UIViewController {
     }
 }
 
+extension ViewController: XMAlertSheetControllerDelegate {
+	func alertControllerIsBeingDismissed(_ alertController: XMAlertSheetController) {
+		print("alertControllerIsBeingDismissed")
+	}
+}

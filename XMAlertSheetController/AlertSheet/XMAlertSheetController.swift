@@ -24,6 +24,16 @@ extension UIDevice {
     }
 }
 
+public protocol XMAlertSheetControllerDelegate: AnyObject {
+	func alertControllerIsBeingDismissed(_ alertController: XMAlertSheetController)
+	func alertControllerDidDismissed(_ alertController: XMAlertSheetController)
+}
+
+public extension XMAlertSheetControllerDelegate {
+	func alertControllerIsBeingDismissed(_ alertController: XMAlertSheetController) {}
+	func alertControllerDidDismissed(_ alertController: XMAlertSheetController) {}
+}
+
 @objc open class XMAlertSheetController: UIViewController {
 
 	/// 黑色半透明遮罩
@@ -54,7 +64,8 @@ extension UIDevice {
     private var contentViewHeight: CGFloat = 0
     /// 点击背景是否消失
     open var dismissWithBackgroudTouch = true // enable touch background to dismiss. default value is true
-    
+	open weak var delegate: XMAlertSheetControllerDelegate?
+
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.alertView.transform = CGAffineTransform(translationX: 0, y: self.contentViewHeight)
@@ -164,12 +175,15 @@ extension UIDevice {
     }
     
 	@objc private func animateDismiss(_ alertAction: XMAlertAction?) {
+		let delegate = delegate
+		delegate?.alertControllerIsBeingDismissed(self)
 		let actionHandler = alertAction?.action
         UIView.animate(withDuration: 0.25, animations: { [unowned self] in
             self.alertView.transform = CGAffineTransform(translationX: 0, y: self.alertView.bounds.height)
 			self.maskView.alpha = 0.0
         }, completion: { [unowned self] _ in
 			self.dismiss(animated: false, completion: {
+				delegate?.alertControllerDidDismissed(self)
 				DispatchQueue.main.async {
 					actionHandler?()
 				}
