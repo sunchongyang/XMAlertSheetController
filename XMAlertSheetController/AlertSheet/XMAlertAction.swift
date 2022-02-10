@@ -23,7 +23,7 @@ import UIKit
     /// 分割线
     open var partingLine = UIView()
     
-	open var partingLineHorizonInset: CGFloat = 0
+	open var partingLineHorizonInset: CGFloat = XMAlertTheme.partingLineHorizonInset
 
 	open var partingLineColor: UIColor? {
 		set {
@@ -37,7 +37,7 @@ import UIKit
 
     init() {
         super.init(frame: .zero)
-		partingLineColor = UIColor(red: 0xC7/255.0, green: 0xC7/255.0, blue: 0xC7/255.0, alpha: 1.0)
+		partingLineColor = XMAlertTheme.partingLineColor
     }
     
      @objc public convenience init(title: String, style: XMAlertActionStyle, action: (() -> Void)? = nil) {
@@ -47,16 +47,15 @@ import UIKit
 
         self.addTarget(self, action: #selector(tappedAction), for: .touchUpInside)
         self.setTitle(title, for: .normal)
-		let font = UIFont(name: "DMSans-Medium", size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .medium)
-        self.titleLabel?.font = font
+		self.titleLabel?.font = XMAlertTheme.alertActionFont
         
         switch style {
         case .default:
-			self.setTitleColor(UIColor(red: 0x20/255.0, green: 0x20/255.0, blue: 0x20/255.0, alpha: 1.0), for: .normal)
+			self.setTitleColor(XMAlertTheme.defaultActionColor, for: .normal)
         case .destructive:
-			self.setTitleColor(UIColor(red: 0xFF/255.0, green: 0x3B/255.0, blue: 0x30/255.0, alpha: 1.0), for: .normal)
+			self.setTitleColor(XMAlertTheme.destructiveActionColor, for: .normal)
         case .cancel:
-            self.setTitleColor(UIColor(red: 0x80/255.0, green: 0x80/255.0, blue: 0x80/255.0, alpha: 1.0), for: .normal)
+			self.setTitleColor(XMAlertTheme.cancelActionColor, for: .normal)
         }
         self.addSeparatorLine(style: style)
     }

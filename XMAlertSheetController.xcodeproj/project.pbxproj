@@ -16,6 +16,7 @@
 		640444ED22A154C20001EED4 /* XMAlertSheetController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 640444EC22A154C20001EED4 /* XMAlertSheetController.xib */; };
 		640444EF22A155030001EED4 /* XMAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640444EE22A155030001EED4 /* XMAlertAction.swift */; };
 		64EF7ECD22AA07E000C96D54 /* demo.png in Resources */ = {isa = PBXBuildFile; fileRef = 64EF7ECC22AA07E000C96D54 /* demo.png */; };
+		95612A7F27B4C36800432860 /* XMAlertTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95612A7E27B4C36800432860 /* XMAlertTheme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		640444EC22A154C20001EED4 /* XMAlertSheetController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XMAlertSheetController.xib; sourceTree = "<group>"; };
 		640444EE22A155030001EED4 /* XMAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMAlertAction.swift; sourceTree = "<group>"; };
 		64EF7ECC22AA07E000C96D54 /* demo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = demo.png; sourceTree = "<group>"; };
+		95612A7E27B4C36800432860 /* XMAlertTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMAlertTheme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 				640444EE22A155030001EED4 /* XMAlertAction.swift */,
 				640444E822A154800001EED4 /* XMAlertSheetController.swift */,
 				640444EC22A154C20001EED4 /* XMAlertSheetController.xib */,
+				95612A7E27B4C36800432860 /* XMAlertTheme.swift */,
 			);
 			path = AlertSheet;
 			sourceTree = "<group>";
@@ -159,6 +162,7 @@
 			files = (
 				640444D822A1537D0001EED4 /* ViewController.swift in Sources */,
 				640444EF22A155030001EED4 /* XMAlertAction.swift in Sources */,
+				95612A7F27B4C36800432860 /* XMAlertTheme.swift in Sources */,
 				640444E922A154800001EED4 /* XMAlertSheetController.swift in Sources */,
 				640444D622A1537D0001EED4 /* AppDelegate.swift in Sources */,
 			);

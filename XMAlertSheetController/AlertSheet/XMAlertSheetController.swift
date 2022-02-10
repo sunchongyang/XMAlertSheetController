@@ -84,9 +84,10 @@ extension UIDevice {
         /// for present vc
         self.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         self.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-		let titleFont = UIFont(name: "DMSans-Medium", size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .medium)
-		alertTitle.font = titleFont
-		alertMessage.font = titleFont.withSize(13)
+		alertTitle.font = XMAlertTheme.alertTitleFont
+		alertTitle.textColor = XMAlertTheme.alertTitleColor
+		alertMessage.font = XMAlertTheme.alertMessageFont
+		alertMessage.textColor = XMAlertTheme.alertMessageColor
         if let title = title, title.count > 0 {
             alertTitle.isHidden = false
             alertTitle.text = title
