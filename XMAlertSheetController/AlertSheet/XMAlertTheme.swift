@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct XMAlertTheme {
+public struct XMAlertTheme {
 	public static var alertTitleColor: UIColor = UIColor(red: 0x8F/255.0, green: 0x8F/255.0, blue: 0x8F/255.0, alpha: 1.0)
 	public static var alertTitleFont: UIFont = UIFont.systemFont(ofSize: 16, weight: .medium)
 	public static var alertMessageColor: UIColor = UIColor(red: 0xC7/255.0, green: 0xC7/255.0, blue: 0xC7/255.0, alpha: 1.0)
