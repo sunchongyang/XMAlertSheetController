@@ -34,19 +34,19 @@ extension UIDevice {
 	/// 黑色半透明遮罩
 	@IBOutlet weak var maskView: UIView!
 	/// 主标题
-    @IBOutlet weak var alertTitle: UILabel!
+    @IBOutlet open weak var alertTitle: UILabel!
     /// 副标题
-    @IBOutlet weak var alertMessage: UILabel!
+    @IBOutlet open weak var alertMessage: UILabel!
     /// 弹框主视图
-    @IBOutlet weak var alertView: UIView!
+	@IBOutlet open weak var alertView: UIView!
     /// action stack view
-    @IBOutlet weak var alertActionStackView: UIStackView!
+    @IBOutlet open weak var alertActionStackView: UIStackView!
     /// cancel stack view
-    @IBOutlet weak var cancelStackView: UIStackView!
+	 @IBOutlet open weak var cancelStackView: UIStackView!
     /// alert action stack view height
-    @IBOutlet weak var alertActionStackViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet open weak var alertActionStackViewHeightConstraint: NSLayoutConstraint!
     /// cancel action stack view height
-    @IBOutlet weak var cancelActionStackViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet open weak var cancelActionStackViewHeightConstraint: NSLayoutConstraint!
     /// title and message stack view top Constraint
     @IBOutlet weak var titleStackViewTopConstraint: NSLayoutConstraint!
     /// title and message stack view bottom Constraint
@@ -78,7 +78,6 @@ extension UIDevice {
     ///   - message: 描述
     @objc public  convenience init(title: String? = nil, message: String? = nil) {
         self.init()
-        
         guard let nib = loadNibAlertController(), let unwrappedView = nib[0] as? UIView else { return }
         self.view = unwrappedView
         /// for present vc
@@ -111,6 +110,10 @@ extension UIDevice {
         let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(dismissAlertControllerFromBackgroundTap))
         self.view.addGestureRecognizer(tapRecognizer)
     }
+
+	@objc public func dimiss(animated: Bool = true) {
+		self.animateDismiss(nil)
+	}
     
     //MARK: - Actions
     @objc open func addAction(_ alertAction: XMAlertAction) {
@@ -174,17 +177,21 @@ extension UIDevice {
 		let delegate = delegate
 		delegate?.alertControllerIsBeingDismissed?(self)
 		let actionHandler = alertAction?.action
-        UIView.animate(withDuration: 0.25, animations: { [unowned self] in
-            self.alertView.transform = CGAffineTransform(translationX: 0, y: self.alertView.bounds.height)
-			self.maskView.alpha = 0.0
-        }, completion: { [unowned self] _ in
-			self.dismiss(animated: false, completion: {
-				delegate?.alertControllerDidDismissed?(self)
-				DispatchQueue.main.async {
-					actionHandler?()
-				}
+		if alertAction?.dismissWhenTapped ?? true {
+			UIView.animate(withDuration: 0.25, animations: { [unowned self] in
+				self.alertView.transform = CGAffineTransform(translationX: 0, y: self.alertView.bounds.height)
+				self.maskView.alpha = 0.0
+			}, completion: { [unowned self] _ in
+				self.dismiss(animated: false, completion: {
+					delegate?.alertControllerDidDismissed?(self)
+					DispatchQueue.main.async {
+						actionHandler?()
+					}
+				})
 			})
-        })
+		} else {
+			actionHandler?()
+		}
     }
 }
 

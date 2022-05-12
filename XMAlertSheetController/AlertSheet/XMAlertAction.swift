@@ -13,13 +13,18 @@ import UIKit
     case `default`
     case cancel
     case destructive
+	case selected
 }
 
 @objc open  class XMAlertAction: UIButton {
 
 	open var action: (() -> Void)?
-    
-    open var actionStyle: XMAlertActionStyle = .cancel
+	open var dismissWhenTapped = true // enable tap action to dismiss. default value is true
+	open var actionStyle: XMAlertActionStyle = .cancel {
+		didSet {
+			updateStyle(style: actionStyle)
+		}
+	}
     /// 分割线
     open var partingLine = UIView()
     
@@ -40,23 +45,16 @@ import UIKit
 		partingLineColor = XMAlertTheme.partingLineColor
     }
     
-     @objc public convenience init(title: String, style: XMAlertActionStyle, action: (() -> Void)? = nil) {
+	@objc public convenience init(title: String, style: XMAlertActionStyle, dismissWhenTapped: Bool = true,  action: (() -> Void)? = nil) {
         self.init()
         self.action = action
         self.actionStyle = style
-
+		self.dismissWhenTapped = dismissWhenTapped
         self.addTarget(self, action: #selector(tappedAction), for: .touchUpInside)
         self.setTitle(title, for: .normal)
 		self.titleLabel?.font = XMAlertTheme.alertActionFont
         
-        switch style {
-        case .default:
-			self.setTitleColor(XMAlertTheme.defaultActionColor, for: .normal)
-        case .destructive:
-			self.setTitleColor(XMAlertTheme.destructiveActionColor, for: .normal)
-        case .cancel:
-			self.setTitleColor(XMAlertTheme.cancelActionColor, for: .normal)
-        }
+		self.updateStyle(style: style)
         self.addSeparatorLine(style: style)
     }
     
@@ -74,6 +72,19 @@ extension XMAlertAction {
 //        }
     }
     
+	func updateStyle(style: XMAlertActionStyle) {
+		switch style {
+		case .default:
+			self.setTitleColor(XMAlertTheme.defaultActionColor, for: .normal)
+		case .destructive:
+			self.setTitleColor(XMAlertTheme.destructiveActionColor, for: .normal)
+		case .selected:
+			self.setTitleColor(XMAlertTheme.selectedActionColor, for: .normal)
+		case .cancel:
+			self.setTitleColor(XMAlertTheme.cancelActionColor, for: .normal)
+		}
+	}
+
     func addSeparatorLine(style: XMAlertActionStyle) {
         
         partingLine.backgroundColor = partingLineColor

@@ -16,6 +16,7 @@ public struct XMAlertTheme {
 	public static var defaultActionColor: UIColor = UIColor(red: 0x20/255.0, green: 0x20/255.0, blue: 0x20/255.0, alpha: 1.0)
 	public static var cancelActionColor: UIColor = UIColor(red: 0x80/255.0, green: 0x80/255.0, blue: 0x80/255.0, alpha: 1.0)
 	public static var destructiveActionColor: UIColor = UIColor(red: 0xFF/255.0, green: 0x3B/255.0, blue: 0x30/255.0, alpha: 1.0)
+	public static var selectedActionColor: UIColor = UIColor(red: 0xEA/255.0, green: 0x60/255.0, blue: 0x5E/255.0, alpha: 1.0)
 	public static var alertActionFont: UIFont = UIFont.systemFont(ofSize: 16, weight: .medium)
 
 	public static var partingLineColor: UIColor = UIColor(red: 0xC7/255.0, green: 0xC7/255.0, blue: 0xC7/255.0, alpha: 1.0)

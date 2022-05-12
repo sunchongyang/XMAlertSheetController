@@ -62,7 +62,18 @@ class ViewController: UIViewController {
         }
         
         if showCancelAction {
-            alertSheet.addAction(XMAlertAction(title: "Cancel", style: .cancel))
+			let cancel = XMAlertAction(title: "Cancel", style: .cancel)
+			cancel.partingLine.trailingAnchor.constraint(equalTo: cancel.trailingAnchor, constant: 0).isActive = true
+            alertSheet.addAction(cancel)
+			let cancel2 = XMAlertAction(title: "Cancel2", style: .cancel) { [weak weakAlertSheet =  alertSheet] in
+				weakAlertSheet?.dimiss()
+			}
+			cancel2.partingLine.leadingAnchor.constraint(equalTo: cancel2.leadingAnchor, constant: 0).isActive = true
+			cancel2.dismissWhenTapped = false
+			alertSheet.addAction(cancel2)
+			cancel2.actionStyle = .selected
+			alertSheet.cancelStackView.axis = .horizontal
+			alertSheet.cancelStackView.distribution = .fillEqually
         }
         self.present(alertSheet, animated: true, completion: nil)
     }
